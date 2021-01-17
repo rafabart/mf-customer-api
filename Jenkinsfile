@@ -8,7 +8,7 @@ pipeline {
 	stages {
 		stage('Checkout') {
 			steps {
-				/* Faz um “git clone” no repositório do nosso projeto no github */
+				/* Faz um “git clone” no repositorio do nosso projeto no github */
 				 git branch: 'dev', credentialsId: 'GitAcesso', url: 'https://github.com/rafabart/mf-customer-api'
 			}
 		}
