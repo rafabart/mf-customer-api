@@ -40,10 +40,10 @@ public enum Role {
             return null;
         }
 
-        for (Role Role : Role.values()) {
+        for (Role role : Role.values()) {
 
-            if (name.equals(Role.getName()) || name.equals(Role.toString())) {
-                return Role;
+            if (name.equals(role.getName()) || name.equals(role.toString())) {
+                return role;
             }
         }
 
