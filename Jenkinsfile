@@ -1,7 +1,7 @@
 pipeline {
 	agent {
         docker {
-            image 'openjdk:11'
+            image 'gradle:jdk11'
 //                     args '-v "$PWD":/app'
             reuseNode true
         }
