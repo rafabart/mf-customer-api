@@ -5,7 +5,7 @@ pipeline {
 		stage('Checkout') {
 			steps {
 				/* Faz um “git clone” no repositório do nosso projeto no github */
-				 git branch: 'dev', credentialsId: 'GitAcesso', url: 'https://github.com/rafabart/mf-customer-api'
+				 git url: 'https://github.com/rafabart/mf-customer-api'
 			}
 		}
 		stage('Build') {
@@ -27,9 +27,10 @@ pipeline {
         }
 		stage('Archiving Reports') {
             steps {
-                /* FPara armazenar e publicar os relatórios testes unitários no Jenkins */
+                /* Para armazenar e publicar os relatórios testes unitários no Jenkins */
                 dir(path: '.') {
-                    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'target/site/jacoco/', reportFiles: 'index.html', reportName: 'Code Coverage', reportTitles: 'Code Coverage'])
+                    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'target/site/jacoco/',
+                    reportFiles: 'index.html', reportName: 'Code Coverage', reportTitles: 'Code Coverage'])
                     step([$class: 'JUnitResultArchiver', testResults: 'target/surefire-reports/TEST-*.xml'])
                 }
             }
