@@ -10,7 +10,7 @@ pipeline {
 		stage('Build') {
 			steps {
 				/* Executa o build */
-				sh './gradlew clean classes'
+				sh './gradlew assemble'
 			}
 		}
 		stage('Unit tests') {
