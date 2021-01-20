@@ -1,19 +1,12 @@
 pipeline {
-	agent {
-        docker {
-            image 'gradle:jdk11'
-//                     args '-v "$PWD":/app'
-            reuseNode true
-        }
-    }
-
+	agent any
 	stages {
-		stage('Checkout') {
-			steps {
-				/* Faz um “git clone” no repositório do nosso projeto no github */
-				 git url: 'https://github.com/rafabart/mf-customer-api'
-			}
-		}
+// 		stage('Checkout') {
+// 			steps {
+// 				/* Faz um “git clone” no repositório do nosso projeto no github */
+// 			     git branch: 'master', credentialsId: 'GitAcesso', url: 'https://github.com/rafabart/mf-customer-api'
+// 			}
+// 		}
 		stage('Build') {
 			steps {
 				/* Executa o build */
