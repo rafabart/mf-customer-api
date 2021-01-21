@@ -1,4 +1,3 @@
-dist: mf-customer-api
 language: java
 jdk:
   - oraclejdk11
