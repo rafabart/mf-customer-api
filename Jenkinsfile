@@ -1,22 +1,21 @@
 pipeline {
 	agent any
+
+	tools {
+	    gradle "Gradle6.8"
+	}
+
 	stages {
-// 		stage('Checkout') {
-// 			steps {
-// 				/* Faz um “git clone” no repositório do nosso projeto no github */
-// 			     git branch: 'master', credentialsId: 'GitAcesso', url: 'https://github.com/rafabart/mf-customer-api'
-// 			}
-// 		}
 		stage('Build') {
 			steps {
 				/* Executa o build */
-				sh './gradlew assemble'
+				sh 'gradle assemble'
 			}
 		}
 		stage('Unit tests') {
             steps {
                 /* Executa os testes unitários */
-                sh './gradlew clean test'
+                sh '.gradle clean test'
             }
             post {
                 always {
