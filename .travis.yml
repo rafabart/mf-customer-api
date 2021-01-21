@@ -1,0 +1,13 @@
+dist: mf-customer-api
+language: java
+jdk:
+  - oraclejdk11
+  - oraclejdk9
+script:
+  - ./gradlew assemble
+  - ./gradlew clean test
+  - ./gradlew checkstyleTest
+  - ./gradlew checkstyleMain
+
+before_install:
+  - export TZ=Brazil/East
