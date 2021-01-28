@@ -4,6 +4,8 @@ pipeline {
         jdk 'JDK11'
     }
     stages {
+
+        env.JAVA_HOME = "${jdk}"
         
         stage ('Build Backend') {
             steps {
