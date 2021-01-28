@@ -4,7 +4,7 @@ pipeline {
         
         stage ('Build Backend') {
             steps {
-                sh './gradlew clean package -DskipTests=true'       
+                sh './gradlew clean build -x test'       
             }
         }
         
