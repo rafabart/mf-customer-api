@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        jdk 'OPENJDK11' 
+    }
     stages {
         
         stage ('Build Backend') {
