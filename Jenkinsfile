@@ -3,10 +3,10 @@ pipeline {
     tools {
         jdk 'JDK11'
     }
+     environment {
+        JAVA_HOME = "${jdk}"
+    }
     stages {
-
-        env.JAVA_HOME = "${jdk}"
-        
         stage ('Build Backend') {
             steps {
                 sh './gradlew clean build -x test'       
