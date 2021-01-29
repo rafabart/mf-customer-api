@@ -7,13 +7,13 @@ pipeline {
     stages {
         stage ('Build Backend') {
             steps {
-                sh 'gradle clean build -x test'       
+                sh './gradlew clean build -x test'       
             }
         }
         
         stage ('Unit Tests') {
             steps {
-                sh 'gradle test'       
+                sh './gradlew test'       
             }
         }
     }
