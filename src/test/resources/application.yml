@@ -8,5 +8,13 @@ spring:
   jpa:
     hibernate.ddl-auto: create-drop
 
+  cloud:
+    discovery:
+      enabled: false
+    config:
+      enabled: false
+      discovery:
+        enabled: false
+
   flyway:
     enabled: false

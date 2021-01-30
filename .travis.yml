@@ -1,0 +1,11 @@
+language: java
+jdk:
+  - oraclejdk11
+script:
+  - ./gradlew checkstyleTest
+  - ./gradlew checkstyleMain
+  - ./gradlew clean test
+  - ./gradlew build
+
+before_install:
+  - export TZ=Brazil/East
