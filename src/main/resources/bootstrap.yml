@@ -3,12 +3,12 @@ spring:
     name: mf-customer-api
 
   profiles:
-    active: ${PROFILE:devlocal}
+    active: prod
 
   cloud:
     config:
-      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
-      label: ${BRANCH:devlocal}
+      uri: ${CONFIG_SERVER_URL}
+      label: main
 
 management:
   endpoints:

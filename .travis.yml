@@ -1,11 +1,25 @@
 language: java
+
+branches:
+  only:
+    - master
+
 jdk:
   - oraclejdk11
+
+before_script:
+  - chmod +x gradlew
+
 script:
+  - ./gradlew clean test
   - ./gradlew checkstyleTest
   - ./gradlew checkstyleMain
-  - ./gradlew clean test
   - ./gradlew build
 
 before_install:
   - export TZ=Brazil/East
+
+deploy:
+  provider: heroku
+  app: mf-customer-api
+  api_key: $HEROKU_API_KEY

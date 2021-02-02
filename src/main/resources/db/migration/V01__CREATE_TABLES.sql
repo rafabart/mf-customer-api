@@ -1,6 +1,3 @@
---Arquivo usado somente com o bando de dados POSTGRES para dev
-
-
 CREATE TABLE public.tb_customer (
 	id bigserial NOT NULL,
 	email varchar(255) NULL,
