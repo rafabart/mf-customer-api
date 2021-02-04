@@ -3,12 +3,12 @@ spring:
     name: mf-customer-api
 
   profiles:
-    active: prod
+    active: ${PROFILE}
 
   cloud:
     config:
       uri: ${CONFIG_SERVER_URL}
-      label: main
+      label: ${BRANCH}
 
 management:
   endpoints:
