@@ -2,6 +2,7 @@ package com.mfcustomerapi.services;
 
 import com.mfcustomerapi.entities.Customer;
 import com.mfcustomerapi.exceptions.CustomerNotFoundException;
+import com.mfcustomerapi.exceptions.EmailIntegrityViolationException;
 import com.mfcustomerapi.exceptions.EmailNotFoundException;
 import com.mfcustomerapi.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,9 @@ public class CustomerService {
 
 
     public Long create(final Customer customer) {
+        if (customerRepository.findByEmail(customer.getEmail()).isPresent()) {
+            throw new EmailIntegrityViolationException();
+        }
         return customerRepository.save(customer).getId();
     }
 
