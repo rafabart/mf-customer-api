@@ -1,26 +1,32 @@
 package com.mfcustomerapi.mappers;
 
 import com.mfcustomerapi.entities.Customer;
-import com.mfcustomerapi.entities.request.CustomerRequest;
+import com.mfcustomerapi.entities.request.CustomerCreateRequest;
+import com.mfcustomerapi.entities.request.CustomerUpdateRequest;
 import com.mfcustomerapi.entities.response.CustomerResponse;
 import com.mfcustomerapi.enums.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+import static java.util.stream.Collectors.toSet;
+
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CustomerMapper {
 
     @Mapping(target = "roles", qualifiedByName = "rolesMapper")
-    Customer to(CustomerRequest customerRequest);
+    Customer to(CustomerCreateRequest customerCreateRequest);
 
     @Mapping(target = "roles", qualifiedByName = "rolesMapper")
-    Customer to(Long id, CustomerRequest customerRequest);
+    Customer to(Long id, CustomerUpdateRequest customerUpdateRequest);
+
+    void toUpdate(@MappingTarget Customer customerSaved, Customer customer);
 
     CustomerResponse toReponse(Customer customer);
 
@@ -33,6 +39,6 @@ public interface CustomerMapper {
                 .stream()
                 .map(Role::toEnum)
                 .map(Role::getCod)
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 }

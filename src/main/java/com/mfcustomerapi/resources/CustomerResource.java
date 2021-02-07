@@ -1,6 +1,7 @@
 package com.mfcustomerapi.resources;
 
-import com.mfcustomerapi.entities.request.CustomerRequest;
+import com.mfcustomerapi.entities.request.CustomerCreateRequest;
+import com.mfcustomerapi.entities.request.CustomerUpdateRequest;
 import com.mfcustomerapi.entities.response.CustomerResponse;
 import com.mfcustomerapi.mappers.CustomerMapper;
 import com.mfcustomerapi.services.CustomerService;
@@ -66,9 +67,9 @@ public class CustomerResource {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public URI create(@Valid @RequestBody final CustomerRequest customerRequest) {
+    public URI create(@Valid @RequestBody final CustomerCreateRequest customerCreateRequest) {
 
-        final Long id = customerService.create(customerMapper.to(customerRequest));
+        final Long id = customerService.create(customerMapper.to(customerCreateRequest));
 
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -81,9 +82,9 @@ public class CustomerResource {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable("id") final Long id,
-                       @Valid @RequestBody final CustomerRequest customerRequest) {
+                       @Valid @RequestBody final CustomerUpdateRequest customerUpdateRequest) {
 
-        customerService.update(customerMapper.to(id, customerRequest));
+        customerService.update(customerMapper.to(id, customerUpdateRequest));
 
     }
 }

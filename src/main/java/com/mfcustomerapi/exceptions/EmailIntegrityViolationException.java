@@ -2,13 +2,13 @@ package com.mfcustomerapi.exceptions;
 
 public class EmailIntegrityViolationException extends RuntimeException {
 
-    private static final String MESSAGE = "Email já cadastrado";
+    private static final String MESSAGE = "Email já cadastrado -> email: ";
 
-    public EmailIntegrityViolationException() {
-        super(MESSAGE);
+    public EmailIntegrityViolationException(final String email) {
+        super(MESSAGE + email.substring(0, 5));
     }
 
-    public EmailIntegrityViolationException(final Throwable cause) {
-        super(MESSAGE, cause);
+    public EmailIntegrityViolationException(final String email, final Throwable cause) {
+        super(MESSAGE + email.substring(0, 5), cause);
     }
 }

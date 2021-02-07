@@ -19,5 +19,5 @@ public class CustomerResponse {
 
     private String email;
 
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> rolesNamed = new HashSet<>();
 }

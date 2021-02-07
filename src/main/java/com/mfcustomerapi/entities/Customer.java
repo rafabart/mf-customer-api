@@ -30,11 +30,13 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -42,7 +44,7 @@ public class Customer {
     private Set<Integer> roles = new HashSet<>(Arrays.asList(1));
 
 
-    public Set<Role> getRoles() {
+    public Set<Role> getRolesNamed() {
         return this.roles.stream().map(r -> Role.toEnum(r)).collect(Collectors.toSet());
     }
 }

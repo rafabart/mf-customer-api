@@ -2,6 +2,7 @@ package com.mfcustomerapi.resources;
 
 import com.mfcustomerapi.exceptions.CustomerNotFoundException;
 import com.mfcustomerapi.exceptions.EmailIntegrityViolationException;
+import com.mfcustomerapi.exceptions.EmailNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -26,6 +27,14 @@ public class HandlerExceptionResource {
         log.error("objectNotFound: " + ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), NOT_FOUND);
     }
+
+
+    @ExceptionHandler(value = {EmailNotFoundException.class})
+    public ResponseEntity<Object> objectNotFound(EmailNotFoundException ex) {
+        log.error("objectNotFound: " + ex.getMessage());
+        return new ResponseEntity<>(ex.getMessage(), NOT_FOUND);
+    }
+
 
     @ExceptionHandler(value = {EmailIntegrityViolationException.class})
     public ResponseEntity<Object> integrityViolationException(EmailIntegrityViolationException ex) {

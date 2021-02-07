@@ -2,13 +2,13 @@ package com.mfcustomerapi.exceptions;
 
 public class EmailNotFoundException extends RuntimeException {
 
-    private static final String MESSAGE = "Email não encontrado";
+    private static final String MESSAGE = "Email não encontrado -> email: ";
 
-    public EmailNotFoundException() {
-        super(MESSAGE);
+    public EmailNotFoundException(final String email) {
+        super(MESSAGE + email.substring(0, 5));
     }
 
-    public EmailNotFoundException(final Throwable cause) {
-        super(MESSAGE, cause);
+    public EmailNotFoundException(final String email, final Throwable cause) {
+        super(MESSAGE + email.substring(0, 5), cause);
     }
 }

@@ -1,7 +1,6 @@
 package com.mfcustomerapi.services;
 
 import com.mfcustomerapi.entities.Customer;
-import com.mfcustomerapi.enums.Role;
 import com.mfcustomerapi.exceptions.CustomerNotFoundException;
 import com.mfcustomerapi.repositories.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +39,7 @@ public class CustomerServiceTest {
         customer.setName("Bart Simpsons");
         customer.setEmail("bart@gmail.com");
         customer.setPassword("123456");
-        customer.setRoles(new HashSet<>(Arrays.asList(Role.USER.getCod(), Role.USER.getCod())));
+        customer.setRoles(new HashSet<>(Arrays.asList(1, 2)));
     }
 
     @Test
