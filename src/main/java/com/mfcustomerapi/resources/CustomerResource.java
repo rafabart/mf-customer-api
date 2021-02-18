@@ -6,7 +6,6 @@ import com.mfcustomerapi.entities.response.CustomerResponse;
 import com.mfcustomerapi.mappers.CustomerMapper;
 import com.mfcustomerapi.services.CustomerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +23,9 @@ import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/customers")
@@ -34,7 +36,7 @@ public class CustomerResource {
 
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public List<CustomerResponse> findAll() {
 
         return customerMapper.toResponseList(customerService.findAll());
@@ -42,7 +44,7 @@ public class CustomerResource {
 
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public CustomerResponse findById(@PathVariable("id") final Long id) {
 
         return customerMapper.toReponse(customerService.findById(id));
@@ -50,7 +52,7 @@ public class CustomerResource {
 
 
     @GetMapping("/search")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public CustomerResponse findByEmail(@RequestParam("email") @NotNull final String email) {
 
         return customerMapper.toReponse(customerService.findByEmail(email));
@@ -58,7 +60,7 @@ public class CustomerResource {
 
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public void delte(@PathVariable("id") final Long id) {
 
         customerService.deleteById(id);
@@ -66,7 +68,7 @@ public class CustomerResource {
 
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public URI create(@Valid @RequestBody final CustomerCreateRequest customerCreateRequest) {
 
         final Long id = customerService.create(customerMapper.to(customerCreateRequest));
@@ -80,7 +82,7 @@ public class CustomerResource {
 
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public void update(@PathVariable("id") final Long id,
                        @Valid @RequestBody final CustomerUpdateRequest customerUpdateRequest) {
 

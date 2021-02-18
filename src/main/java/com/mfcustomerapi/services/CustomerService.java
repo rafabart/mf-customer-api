@@ -7,6 +7,9 @@ import com.mfcustomerapi.exceptions.EmailNotFoundException;
 import com.mfcustomerapi.mappers.CustomerMapper;
 import com.mfcustomerapi.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,22 +30,26 @@ public class CustomerService {
     }
 
 
+    @Cacheable(value = "customer", key = "#id", unless = "#result == null")
     public Customer findById(final Long id) {
         return customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
 
+    @Cacheable(value = "customerByEmail", key = "#email", unless = "#result == null")
     public Customer findByEmail(final String email) {
         return customerRepository.findByEmail(email).orElseThrow(() -> new EmailNotFoundException(email));
     }
 
 
+    @CacheEvict(value = "customer", key = "#id")
     public void deleteById(final Long id) {
         findById(id);
         customerRepository.deleteById(id);
     }
 
 
+    @CachePut(value = "customer", key = "#customer.id")
     public Long create(final Customer customer) {
         if (customerRepository.findByEmail(customer.getEmail()).isPresent()) {
             throw new EmailIntegrityViolationException(customer.getEmail());
@@ -54,7 +61,9 @@ public class CustomerService {
     }
 
 
+    @CachePut(value = "customer", key = "#id")
     public void update(final Customer customer) {
+
         final Customer customerSaved = findById(customer.getId());
 
         if (Objects.nonNull(customer.getPassword())) {
@@ -62,7 +71,6 @@ public class CustomerService {
         }
 
         customerMapper.toUpdate(customerSaved, customer);
-
         customerRepository.save(customerSaved);
     }
 }
