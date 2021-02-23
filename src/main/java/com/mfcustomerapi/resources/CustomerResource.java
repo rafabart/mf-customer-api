@@ -71,7 +71,7 @@ public class CustomerResource {
     @ResponseStatus(CREATED)
     public URI create(@Valid @RequestBody final CustomerCreateRequest customerCreateRequest) {
 
-        final Long id = customerService.create(customerMapper.to(customerCreateRequest));
+        final Long id = customerService.create(customerMapper.to(customerCreateRequest)).getId();
 
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()

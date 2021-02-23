@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,27 +43,36 @@ public class CustomerService {
     }
 
 
-    @CacheEvict(value = "customer", key = "#id")
+    @Caching(evict = {
+            @CacheEvict(value = "customer", key = "#id"),
+            @CacheEvict(value = "customerByEmail", allEntries = true)
+    })
     public void deleteById(final Long id) {
         findById(id);
         customerRepository.deleteById(id);
     }
 
 
-    @CachePut(value = "customer", key = "#customer.id")
-    public Long create(final Customer customer) {
+    @Caching(put = {
+            @CachePut(value = "customer", key = "#result.id"),
+            @CachePut(value = "customerByEmail", key = "#result.email")
+    })
+    public Customer create(final Customer customer) {
         if (customerRepository.findByEmail(customer.getEmail()).isPresent()) {
             throw new EmailIntegrityViolationException(customer.getEmail());
         }
 
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
 
-        return customerRepository.save(customer).getId();
+        return customerRepository.save(customer);
     }
 
 
-    @CachePut(value = "customer", key = "#id")
-    public void update(final Customer customer) {
+    @Caching(put = {
+            @CachePut(value = "customer", key = "#result.id"),
+            @CachePut(value = "customerByEmail", key = "#result.email")
+    })
+    public Customer update(Customer customer) {
 
         final Customer customerSaved = findById(customer.getId());
 
@@ -71,6 +81,6 @@ public class CustomerService {
         }
 
         customerMapper.toUpdate(customerSaved, customer);
-        customerRepository.save(customerSaved);
+        return customerRepository.save(customerSaved);
     }
 }
