@@ -55,7 +55,9 @@ public class HandlerExceptionResource {
 
         final Map<String, String> validationError = new HashMap<>();
         objectErrors.forEach(
-                objectError -> validationError.put(((FieldError) objectError).getField(), objectError.getDefaultMessage())
+                objectError -> validationError.put(
+                        ((FieldError) objectError).getField(), objectError.getDefaultMessage()
+                )
         );
 
         return validationError;

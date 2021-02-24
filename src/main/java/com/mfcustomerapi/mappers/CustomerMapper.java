@@ -17,7 +17,10 @@ import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
 
-@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+)
 public interface CustomerMapper {
 
     @Mapping(target = "roles", qualifiedByName = "rolesMapper")
