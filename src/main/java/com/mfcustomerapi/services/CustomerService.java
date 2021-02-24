@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 
+import static com.mfcustomerapi.services.CacheService.CUSTOMER;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
@@ -31,21 +33,21 @@ public class CustomerService {
     }
 
 
-    @Cacheable(value = "customer", key = "#id", unless = "#result == null")
+    @Cacheable(value = CUSTOMER, key = "#id", unless = "#result == null")
     public Customer findById(final Long id) {
         return customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
 
-    @Cacheable(value = "customerByEmail", key = "#email", unless = "#result == null")
+    @Cacheable(value = CUSTOMER, key = "#email", unless = "#result == null")
     public Customer findByEmail(final String email) {
         return customerRepository.findByEmail(email).orElseThrow(() -> new EmailNotFoundException(email));
     }
 
 
     @Caching(evict = {
-            @CacheEvict(value = "customer", key = "#id"),
-            @CacheEvict(value = "customerByEmail", allEntries = true)
+            @CacheEvict(value = CUSTOMER, key = "#id"),
+            @CacheEvict(value = CUSTOMER, allEntries = true)
     })
     public void deleteById(final Long id) {
         findById(id);
@@ -54,8 +56,8 @@ public class CustomerService {
 
 
     @Caching(put = {
-            @CachePut(value = "customer", key = "#result.id"),
-            @CachePut(value = "customerByEmail", key = "#result.email")
+            @CachePut(value = CUSTOMER, key = "#result.id"),
+            @CachePut(value = CUSTOMER, key = "#result.email")
     })
     public Customer create(final Customer customer) {
         if (customerRepository.findByEmail(customer.getEmail()).isPresent()) {
@@ -69,8 +71,8 @@ public class CustomerService {
 
 
     @Caching(put = {
-            @CachePut(value = "customer", key = "#result.id"),
-            @CachePut(value = "customerByEmail", key = "#result.email")
+            @CachePut(value = CUSTOMER, key = "#result.id"),
+            @CachePut(value = CUSTOMER, key = "#result.email")
     })
     public Customer update(Customer customer) {
 
