@@ -9,6 +9,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
+    runtime.exclude group: "ch.qos.logback", module: "logback-classic" //Removida multipla dependencia da lib SLF4J
     compileOnly {
         extendsFrom annotationProcessor
     }
@@ -41,6 +42,8 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 
     testImplementation 'org.hsqldb:hsqldb'
+    testImplementation 'org.projectlombok:lombok'
+    testImplementation 'it.ozimov:embedded-redis:0.7.3'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
@@ -61,9 +64,9 @@ checkstyle {
 }
 
 checkstyleMain {
-    source ='src/main/java'
+    source = 'src/main/java'
 }
 
 checkstyleTest {
-    source ='src/test/java'
+    source = 'src/test/java'
 }

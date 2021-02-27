@@ -1,6 +1,7 @@
 package com.mfcustomerapi.entities.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerCreateRequest {
@@ -25,5 +27,6 @@ public class CustomerCreateRequest {
     private String email;
 
     @NotNull
+    @Builder.Default
     private Set<String> roles = new HashSet<>();
 }

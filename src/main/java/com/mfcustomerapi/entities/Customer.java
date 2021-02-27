@@ -2,6 +2,7 @@ package com.mfcustomerapi.entities;
 
 import com.mfcustomerapi.enums.Role;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tb_customer")
@@ -40,6 +42,7 @@ public class Customer implements Serializable {
     @Column(nullable = false)
     private String password;
 
+    @Builder.Default
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "tb_customer_roles")
     private Set<Integer> roles = new HashSet<>(Arrays.asList(1));
