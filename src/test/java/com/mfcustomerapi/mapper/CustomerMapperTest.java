@@ -95,6 +95,8 @@ public class CustomerMapperTest {
 
         final List<CustomerResponse> responseList = customerMapper.toResponseList(customerList);
 
-    //TODO -> Compara o resultado das 2 listas
+        for (int i = 0; i < responseList.size(); i++) {
+            assertThat(responseList.get(i)).isEqualToComparingFieldByField(customerList.get(i));
+        }
     }
 }
